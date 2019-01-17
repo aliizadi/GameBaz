@@ -1,0 +1,34 @@
+<ul>
+  <li *ngFor="let onlineUser of onlineUsers">
+    {{onlineUser.id}}
+    {{onlineUser.firstName}}
+    {{onlineUser.lastName}}
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let bestGame of bestGames">
+    {{bestGame.maxScore}}
+    {{bestGame.resetNumbers[0]}}
+    {{bestGame.Dices}}
+    {{bestGame.maxThrow}}
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let mostOnlineGame of mostOnlineGames">
+    {{mostOnlineGame.maxScore}}
+    {{mostOnlineGame.resetNumbers[0]}}
+    {{mostOnlineGame.Dices}}
+    {{mostOnlineGame.maxThrow}}
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let bestNewGame of bestNewGames">
+    {{bestNewGame.maxScore}}
+    {{bestNewGame.resetNumbers[0]}}
+    {{bestNewGame.Dices}}
+    {{bestNewGame.maxThrow}}
+  </li>
+</ul>
