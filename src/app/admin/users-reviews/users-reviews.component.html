@@ -1,0 +1,16 @@
+<p>
+  users-reviews works!
+</p>
+
+<ul>
+  <li *ngFor="let userComment of usersComments">
+    {{userComment.username}}
+    {{userComment.firstName}}
+    {{userComment.lastName}}
+    {{userComment.content}}
+    {{userComment.accepted}}
+  </li>
+</ul>
+
+<!--submit button  -->
+<button (click)="goBack()">go back</button>

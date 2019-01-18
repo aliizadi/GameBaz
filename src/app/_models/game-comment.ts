@@ -1,5 +1,5 @@
 export class gameComment{
-    gameID: string;
+    gameID: number;
     gameName: string;
     content: string;
     accepted: boolean;

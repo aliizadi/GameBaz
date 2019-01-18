@@ -1,0 +1,14 @@
+<p>
+  games-reviews works!
+</p>
+
+<ul>
+  <li *ngFor="let gameComment of gamesComments">
+    {{gameComment.gameID}}
+    {{gameComment.gameName}}
+    {{gameComment.content}}
+    {{gameComment.accepted}}
+  </li>
+</ul>
+
+<button (click)="goBack()">go back</button>
