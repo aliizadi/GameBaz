@@ -1,3 +1,18 @@
 <p>
   users works!
 </p>
+<h3> All Users </h3>
+
+<ul>
+    <li *ngFor="let user of allUsers">
+      <a routerLink="/profile/{{user.username}}">
+        user.username
+      </a>
+      {{user.averageRating}}
+      {{user.totalPlayed}}
+      {{user.status}}      
+    </li>
+</ul>
+
+
+

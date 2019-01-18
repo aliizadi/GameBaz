@@ -1,3 +1,21 @@
 <p>
   games works!
 </p>
+
+<h3> All Games </h3>
+
+<ul>
+    <li *ngFor="let game of allGames">
+      {{game.averageRating}}
+      {{game.totalPlaying}}
+      {{game.designedDate}}
+      {{game.averageRating}} 
+      <a routerLink="/designed-games-detail/{{game.id}}">
+        {{game.id}}
+      </a>
+   
+    </li>
+</ul>
+
+
+
