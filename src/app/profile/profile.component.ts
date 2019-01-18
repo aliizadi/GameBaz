@@ -3,10 +3,13 @@ import { Component, OnInit } from '@angular/core';
 // Components 
 import { userInformation } from '../_models/user-information'
 import { playedGames } from '../_models/played-games'
+import { designedGames } from '../_models/designed-games'
 
 // Services
 import { UserInformationService } from '../_services/profile/user-information.service';
 import { PlayedGamesService } from '../_services/profile/played-games.service';
+import { DesignedGamesService } from '../_services/profile/designed-games.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -16,14 +19,17 @@ import { PlayedGamesService } from '../_services/profile/played-games.service';
 export class ProfileComponent implements OnInit {
 
   userInformation: userInformation;
-  playedGamed: playedGames;
+  playedGames: playedGames;
+  designedGames: designedGames;
 
   constructor(private userInformationService: UserInformationService,
-              private playedGamesService: PlayedGamesService) { }
+              private playedGamesService: PlayedGamesService,
+              private designedGamesService: DesignedGamesService) { }
 
   ngOnInit() {
     this.getUserInformation();
     this.getPlayedGames();
+    this.getDesignedGames();
   }
 
   getUserInformation(): void {
@@ -32,9 +38,13 @@ export class ProfileComponent implements OnInit {
   }
 
   getPlayedGames(): void {
-    this.playedGamesService.getUserInformation()
-      .subscribe(playedGames => this.playedGamed = playedGames)
+    this.playedGamesService.getPlayedGames()
+      .subscribe(playedGames => this.playedGames = playedGames)
   }
-  
+    
+  getDesignedGames(): void {
+    this.designedGamesService.getDesignedGames()
+      .subscribe(designedGames => this.designedGames = designedGames)
+  }
 
 }

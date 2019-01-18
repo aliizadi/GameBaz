@@ -1,0 +1,25 @@
+<p>
+  games-detail works!
+</p>
+
+<h3>opponent</h3>
+{{gameDetail.opponent.id}}
+{{gameDetail.opponent.firstName}}
+{{gameDetail.opponent.lastName}}
+<h3>winner</h3>    
+{{gameDetail.winner.id}}
+{{gameDetail.winner.firstName}}
+{{gameDetail.winner.lastName}}
+<h3>Game Comments</h3>
+<ul>
+<li *ngFor="let gameComment of gameDetail.gameComments">
+  {{gameComment.content}}
+  {{gameComment.username}}      
+</li>
+<h3>opponent Comments</h3>
+{{gameDetail.opponentComment.content}}
+{{gameDetail.opponentComment.username}}
+</ul> 
+
+
+<button (click)="goBack()">go back</button>

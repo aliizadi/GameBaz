@@ -12,6 +12,8 @@ import { DesignGameComponent } from './design-game/design-game.component';
 import { GamesComponent } from './games/games.component';
 import { UsersReviewsComponent } from './admin/users-reviews/users-reviews.component';
 import { GamesReviewsComponent } from './admin/games-reviews/games-reviews.component';
+import { GamesDetailComponent } from './profile/games-detail/games-detail.component';
+import { DesignedGamesDetailComponent } from './profile/designed-games-detail/designed-games-detail.component';
 
 // Services
 import { OnlineUsersService } from './_services/online-users.service';
@@ -21,6 +23,13 @@ import { MostOnlineGamesService } from './_services/most-online-games.service';
 import { GamesCommentsService } from './_services/games-comments.service';
 import { UsersCommentsService } from './_services/users-comments.service';
 import { ProfileSummeryService } from './_services/profile-summery.service';
+import { DesignedGamesService } from './_services/profile/designed-games.service';
+import { PlayedGamesService } from './_services/profile/played-games.service';
+import { UserInformationService } from './_services/profile/user-information.service';
+
+
+
+
 
 
 
@@ -34,7 +43,9 @@ import { ProfileSummeryService } from './_services/profile-summery.service';
     DesignGameComponent,
     GamesComponent,
     UsersReviewsComponent,
-    GamesReviewsComponent
+    GamesReviewsComponent,
+    GamesDetailComponent,
+    DesignedGamesDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +58,10 @@ import { ProfileSummeryService } from './_services/profile-summery.service';
     MostOnlineGamesService,
     GamesCommentsService,
     UsersCommentsService,
-    ProfileSummeryService
+    ProfileSummeryService,
+    DesignedGamesService,
+    PlayedGamesService,
+    UserInformationService
   ],
   bootstrap: [AppComponent]
 })

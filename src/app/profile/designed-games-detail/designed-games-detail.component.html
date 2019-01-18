@@ -1,0 +1,13 @@
+<p>
+  designed-games-detail works!
+</p>
+
+<h3>Designed Game Comments</h3>
+<ul>
+<li *ngFor="let gameComment of gameDetail.gameComments">
+  {{gameComment.content}}
+  {{gameComment.username}}      
+</li>
+
+<button (click)="goBack()">go back</button>
+

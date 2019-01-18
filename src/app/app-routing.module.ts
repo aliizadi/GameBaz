@@ -10,6 +10,9 @@ import { StartGameComponent } from './start-game/start-game.component';
 import { UsersComponent } from './users/users.component';
 import { GamesReviewsComponent } from './admin/games-reviews/games-reviews.component';
 import { UsersReviewsComponent } from './admin/users-reviews/users-reviews.component';
+import { GamesDetailComponent } from './profile/games-detail/games-detail.component';
+import { DesignedGamesDetailComponent } from './profile/designed-games-detail/designed-games-detail.component';
+
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -20,6 +23,8 @@ const routes: Routes = [
     { path: 'users', component: UsersComponent },
     { path: 'users-reviews', component: UsersReviewsComponent },
     { path: 'games-reviews', component: GamesReviewsComponent },
+    { path: 'games-detail/:id', component: GamesDetailComponent },
+    { path: 'designed-games-detail/:id', component: DesignedGamesDetailComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full'}
 ];
 

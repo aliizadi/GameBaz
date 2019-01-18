@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { playedGames } from '../../_models/played-games'
+import { gameDetail } from '../../_models/played-games'
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +12,31 @@ export class PlayedGamesService {
 
   constructor() { }
 
-    getUserInformation(): Observable<playedGames> {
+    getPlayedGames(): Observable<playedGames> {
+
       const PLAYEDGAMES: playedGames = {
         totalPlayedGames: 10,
         totalwins: 5,
         averageRating: 2.5,
         games: [
-          {id: 1, name: 'bazi1', data: 'farda'}
-          {id: 1, name: 'bazi1', data: 'farda'}
+          {id: 1, name: 'bazi1', date: 'farda'},
+          {id: 1, name: 'bazi1', date: 'farda'}
         ]
       }
 
       return of(PLAYEDGAMES)
     }
+
+    getGameDetail(id: number): Observable<gameDetail> {
+
+      const GAMEDETAIL: gameDetail = {
+        opponent: {id: 'hoseinhoseini', firstName: 'hosein', lastName: 'hoseini'},
+        gameDate: 'dirooz',
+        winner: {id: 'hoseinhoseini', firstName: 'hosein', lastName: 'hoseini'},
+        gameComments: [{content: 'khooob', username: 'mamamad'}, {content: 'bad', username:'ali'}],
+        opponentComment: {content: 'hey', username: 'alii'}
+      }
+      return of(GAMEDETAIL)
+    }
 }
+

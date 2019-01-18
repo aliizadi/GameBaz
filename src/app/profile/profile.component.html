@@ -2,6 +2,7 @@
   profile works!
 </p>
 
+<h3> User Information </h3>
 <ul>
   <li>
     {{userInformation.username}}
@@ -9,6 +10,42 @@
     {{userInformation.lastName}}
     {{userInformation.birthday}}
     {{userInformation.gender}}
+  </li>
+</ul>
+
+<h3> Played Games </h3>
+<ul>
+  <li>
+    {{playedGames.totalPlayedGames}}
+    {{playedGames.totalwins}}
+    {{playedGames.averageRating}}
+  <ul>
+    <li *ngFor="let playedGame of playedGames.games">
+      <a routerLink="/games-detail/{{playedGame.id}}">
+        playedGame.id
+      </a>
+      {{playedGame.name}}
+      {{playedGame.date}}
+    </li>
+  </ul>
+  </li>
+</ul>
+
+<h3> Designed Games </h3>
+<ul>
+  <li>
+    {{designedGames.totalPlayedGames}}
+    {{designedGames.totalwins}}
+    {{designedGames.averageRating}}
+  <ul>
+    <li *ngFor="let designedGame of designedGames.games">
+      <a routerLink="/designed-games-detail/{{designedGame.id}}">
+        designedGame.id
+      </a>
+      {{designedGame.name}}
+      {{designedGame.date}}
+    </li>
+  </ul>
   </li>
 </ul>
 
