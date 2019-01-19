@@ -1,3 +1,79 @@
-<p>
-  design-game works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="designedForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label>Name: </label>
+          <input type="text" formControlName="name" class="form-control"/>
+          <div *ngIf="f.name.errors">
+              <div *ngIf="f.name.errors.required" class="text-danger"> name is required</div>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label>Max Score: </label>
+          <input type="text" formControlName="maxScore" class="form-control"/>
+            <div *ngIf="f.maxScore.errors">
+              <div *ngIf="f.maxScore.errors.required" class="text-danger"> max score is required</div> 
+              <div *ngIf="f.maxScore.errors.pattern" class="text-danger"> max score must be number</div> 
+            </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p> How many dice to roll? </p>
+          <label class="form-check-label">
+            <input type="radio" value="one" formControlName="dices"> 1 dice
+          </label>
+          <label class="form-check-label">
+            <input type="radio" value="two" formControlName="dices"> 2 dice
+          </label>
+          <label class="form-check-label">
+            <input type="radio" value="four" formControlName="dices"> 4 dice  
+          </label>
+        </div>
+      </div>
+      
+       <div class="card">
+        <div class="card-body">
+          <p> which number/numbers reset current score? </p>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="one"> one
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="two"> two
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="three"> three
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="four"> four 
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="five"> five
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="six"> six
+            </label>
+          </div>
+        </div>
+       </div>
+     <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+              <button [disabled]="!designedForm.valid" class="btn btn-primary">save game</button>
+          </div>
+        </div>
+     </div>
+    </form>
+  </div>
+</div>

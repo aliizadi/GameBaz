@@ -30,8 +30,7 @@ import { UserInformationService } from './_services/profile/user-information.ser
 // Modules
 import { CarouselModule} from 'ngx-bootstrap/carousel';
 import { AccordionModule} from 'ngx-bootstrap/accordion';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -52,7 +51,8 @@ import { AccordionModule} from 'ngx-bootstrap/accordion';
     BrowserModule,
     AppRoutingModule,
     CarouselModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [
     OnlineUsersService,
