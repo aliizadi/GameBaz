@@ -1,16 +1,16 @@
-<p>
-  users-reviews works!
-</p>
+<div class="container">
+  <div class="card-columns">
+    <div class="card" style="width:200px" *ngFor="let userComment of usersComments">
+      <div class="card-body">
+        <h4 class="card-title">{{userComment.username}}</h4>
+        <p class="card-text">First Name: {{userComment.firstName}}</p>
+        <p class="card-text">Last Name: {{userComment.lastName}}}</p>  
+        <p class="card-text">Comment: {{userComment.content}}</p>                  
+        <p class="card-text">accepted: {{userComment.accepted}}</p>                  
+      </div>
+      <img class="card-img-bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" >
+    </div>
+  </div>
+</div>
+<button type="button" (click)="goBack()" class="btn btn-primary btn-lg center">go back</button>
 
-<ul>
-  <li *ngFor="let userComment of usersComments">
-    {{userComment.username}}
-    {{userComment.firstName}}
-    {{userComment.lastName}}
-    {{userComment.content}}
-    {{userComment.accepted}}
-  </li>
-</ul>
-
-<!--submit button  -->
-<button (click)="goBack()">go back</button>

@@ -1,18 +1,21 @@
-<p>
-  users works!
-</p>
-<h3> All Users </h3>
+<div class="container">
+  <div class="card-columns">
+    <div class="card" style="width:200px" *ngFor="let user of allUsers">
+      <div class="card-body">
+        <h4 class="card-title">
+          <a type="button" class="btn btn-primary" routerLink="/profile/{{user.username}}">
+              {{user.username}}
+          </a>
+        </h4>
+        <p class="card-text">Average Rating: {{user.averageRating}}</p>
+        <p class="card-text">Total Played: {{user.totalPlayed}}</p>  
+        <p class="card-text">Status: {{user.status}}</p>             
+      </div>
+      <img class="card-img-bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" >
+    </div>
+  </div>
+</div>
 
-<ul>
-    <li *ngFor="let user of allUsers">
-      <a routerLink="/profile/{{user.username}}">
-        user.username
-      </a>
-      {{user.averageRating}}
-      {{user.totalPlayed}}
-      {{user.status}}      
-    </li>
-</ul>
 
 
 

@@ -1,25 +1,49 @@
-<p>
-  games-detail works!
-</p>
+<accordion>
 
-<h3>opponent</h3>
-{{gameDetail.opponent.id}}
-{{gameDetail.opponent.firstName}}
-{{gameDetail.opponent.lastName}}
-<h3>winner</h3>    
-{{gameDetail.winner.id}}
-{{gameDetail.winner.firstName}}
-{{gameDetail.winner.lastName}}
-<h3>Game Comments</h3>
-<ul>
-<li *ngFor="let gameComment of gameDetail.gameComments">
-  {{gameComment.content}}
-  {{gameComment.username}}      
-</li>
-<h3>opponent Comments</h3>
-{{gameDetail.opponentComment.content}}
-{{gameDetail.opponentComment.username}}
-</ul> 
+    <accordion-group heading="Opponent">
+      <div class="card">
+          <div class="card-body">
+            <p> Opponent ID: {{gameDetail.opponent.id}}</p>
+            <p> First Name: {{gameDetail.opponent.firstName}}</p>
+            <p> Last Name: {{gameDetail.opponent.lastName}}</p>
+          </div>
+      </div>
+    </accordion-group>
 
+    <accordion-group heading="Winner">
+      <div class="card">
+          <div class="card-body">
+            <p>ID: {{gameDetail.winner.id}}</p>
+            <p>First Name: {{gameDetail.winner.firstName}}</p>
+            <p>Last Name: {{gameDetail.winner.lastName}}</p>   
+          </div>
+      </div>
+    </accordion-group>
 
-<button (click)="goBack()">go back</button>
+    <accordion-group heading="Comments">
+      <div class="card">
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-success" *ngFor="let gameComment of gameDetail.gameComments">
+                <ul class="list-group">
+                  <li class="list-group-item">Content: {{gameComment.content}}</li>
+                  <li class="list-group-item"> User Name: {{gameComment.username}}</li>
+                </ul> 
+              </li>
+            </ul>
+          </div>
+      </div>
+    </accordion-group>
+
+    <accordion-group heading="Opponent Comment">
+      <div class="card">
+        <div class="card-body">
+          <p> Opponent Comment: {{gameDetail.opponentComment.content}}</p>
+          <p> Username: {{gameDetail.opponentComment.username}}</p>
+        </div>
+      </div>
+    </accordion-group>
+
+</accordion>  
+
+<button type="button" (click)="goBack()" class="btn btn-primary btn-lg center">go back</button>

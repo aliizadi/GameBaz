@@ -1,13 +1,18 @@
-<p>
-  designed-games-detail works!
-</p>
+<accordion>
+    <accordion-group heading="Comments">
+      <div class="card">
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-success" *ngFor="let gameComment of gameDetail.gameComments">
+                <ul class="list-group">
+                  <li class="list-group-item">Content: {{gameComment.content}}</li>
+                  <li class="list-group-item"> User Name: {{gameComment.username}}</li>
+                </ul> 
+              </li>
+            </ul>
+          </div>
+      </div>
+    </accordion-group>
+</accordion>
 
-<h3>Designed Game Comments</h3>
-<ul>
-<li *ngFor="let gameComment of gameDetail.gameComments">
-  {{gameComment.content}}
-  {{gameComment.username}}      
-</li>
-
-<button (click)="goBack()">go back</button>
-
+<button type="button" (click)="goBack()" class="btn btn-primary btn-lg center">go back</button>

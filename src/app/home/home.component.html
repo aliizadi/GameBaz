@@ -1,50 +1,68 @@
-<ul>
-  <li *ngFor="let onlineUser of onlineUsers">
-    {{onlineUser.id}}
-    {{onlineUser.firstName}}
-    {{onlineUser.lastName}}
-  </li>
-</ul>
+<accordion>
 
-<ul>
-  <li *ngFor="let bestGame of bestGames">
-    {{bestGame.maxScore}}
-    {{bestGame.resetNumbers[0]}}
-    {{bestGame.Dices}}
-    {{bestGame.maxThrow}}
-  </li>
-</ul>
+  <accordion-group heading="Online Users">
+    <div class="container">
+      <div class="card-columns">
+        <div class="card" style="width:200px" *ngFor="let onlineUser of onlineUsers">
+          <div class="card-body">
+            <h4 class="card-title">{{onlineUser.id}}</h4>
+            <p class="card-text">First Name: {{onlineUser.firstName}}</p>
+            <p class="card-text">Last Name: {{onlineUser.lastName}}</p>      
+          </div>
+          <img class="card-img-bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" >
+        </div>
+      </div>
+    </div>
+  </accordion-group>
 
-<ul>
-  <li *ngFor="let mostOnlineGame of mostOnlineGames">
-    {{mostOnlineGame.maxScore}}
-    {{mostOnlineGame.resetNumbers[0]}}
-    {{mostOnlineGame.Dices}}
-    {{mostOnlineGame.maxThrow}}
-  </li>
-</ul>
+  <accordion-group heading="Best Games">
+    <carousel>
+        <slide *ngFor="let bestGame of bestGames">
+          <div class="text-center py-5 bg-dark text-white">
+            <p>Max Score: {{bestGame.maxScore}}</p>
+            <p>Reset Numbers: {{bestGame.resetNumbers[0]}}</p>
+            <p>Dices: {{bestGame.Dices}}</p>
+            <p>Max Throw: {{bestGame.maxThrow}}</p>
+          </div>
+        </slide>
+    </carousel>
+  </accordion-group>
+ 
+  <accordion-group heading="Most Online Games">
+    <carousel>
+        <slide *ngFor="let mostOnlineGame of mostOnlineGames">
+          <div class="text-center py-5 bg-dark text-white">
+            <p>Max Score: {{mostOnlineGame.maxScore}}</p>
+            <p>Reset Numbers: {{mostOnlineGame.resetNumbers[0]}}</p>
+            <p>Dices: {{mostOnlineGame.Dices}}</p>
+            <p>Max Throw: {{mostOnlineGame.maxThrow}}</p>
+          </div>
+        </slide>
+    </carousel>
+  </accordion-group>
 
-<ul>
-  <li *ngFor="let bestNewGame of bestNewGames">
-    {{bestNewGame.maxScore}}
-    {{bestNewGame.resetNumbers[0]}}
-    {{bestNewGame.Dices}}
-    {{bestNewGame.maxThrow}}
-  </li>
-</ul>
+  <accordion-group heading="Best New Games">
+    <carousel>
+        <slide *ngFor="let bestNewGame of bestNewGames">
+          <div class="text-center py-5 bg-dark text-white">
+            <p>Max Score: {{bestNewGame.maxScore}}</p>
+            <p>Reset Numbers: {{bestNewGame.resetNumbers[0]}}</p>
+            <p>Dices: {{bestNewGame.Dices}}</p>
+            <p>Max Throw: {{bestNewGame.maxThrow}}</p>
+          </div>
+        </slide>
+    </carousel>  
+  </accordion-group>
+</accordion>
 
-<ul>
-  <li>
-    {{profileSummery.username}}
-    {{profileSummery.firstName}}
-    {{profileSummery.lastName}}
-    {{profileSummery.email}}
-    {{profileSummery.playedGame}}
-    {{profileSummery.wins}}
-    {{profileSummery.averageRate}}
-  </li>
-</ul>
-
-<a routerLink="/users-reviews">  Users Reviews </a>
-<a routerLink="/games-reviews">  Games Reviews </a>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav" >
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/users-reviews" style="text-align: center;">Users Reviews </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" routerLink="/games-reviews" style="text-align: center;">games-reviews </a>
+    </li>
+  </ul>
+</nav>
 

@@ -1,51 +1,60 @@
-<p>
-  profile works!
-</p>
+<accordion>
+  <accordion-group heading="User Information">
+    <div class="container">
+      <div class="card-columns">
+        <div class="card" style="width:200px">
+          <div class="card-body">
+            <h4 class="card-title">User Name: {{userInformation.username}}</h4>
+            <p class="card-text">First Name: {{userInformation.firstName}}</p>
+            <p class="card-text">Last Name: {{userInformation.lastName}}</p>  
+            <p class="card-text"> Birthday: {{userInformation.birthday}}</p> 
+            <p class="card-text">gender: {{userInformation.gender}}</p>                                
+          </div>
+          <img class="card-img-bottom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" >
+        </div>
+      </div>
+    </div>
+  </accordion-group>
 
-<h3> User Information </h3>
-<ul>
-  <li>
-    {{userInformation.username}}
-    {{userInformation.firstName}}
-    {{userInformation.lastName}}
-    {{userInformation.birthday}}
-    {{userInformation.gender}}
-  </li>
-</ul>
+  <accordion-group heading="Played Games">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Total Played Games: {{playedGames.totalPlayedGames}}</h4>
+        <p class="card-text">Total Wins: {{playedGames.totalwins}}</p>
+        <p class="card-text">Average Rating: {{playedGames.averageRating}}</p>                               
+      </div>
+    </div> 
+    <carousel>
+        <slide *ngFor="let playedGame of playedGames.games">
+          <div class="text-center py-5 bg-dark text-white">
+            <a type="button" class="btn btn-primary" routerLink="/games-detail/{{playedGame.id}}">Game Detail</a>
+            <p>Name: {{playedGame.name}}</p>
+            <p>Date: {{playedGame.date}}</p>
+          </div>
+        </slide>
+    </carousel>
+  </accordion-group>
 
-<h3> Played Games </h3>
-<ul>
-  <li>
-    {{playedGames.totalPlayedGames}}
-    {{playedGames.totalwins}}
-    {{playedGames.averageRating}}
-  <ul>
-    <li *ngFor="let playedGame of playedGames.games">
-      <a routerLink="/games-detail/{{playedGame.id}}">
-        playedGame.id
-      </a>
-      {{playedGame.name}}
-      {{playedGame.date}}
-    </li>
-  </ul>
-  </li>
-</ul>
+  <accordion-group heading="Designed Games">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Total Designed Games: {{designedGames.totalDesignedGames}}</h4>
+        <p class="card-text">Total Played: {{designedGames.totalPlayed}}</p>
+        <p class="card-text">Average Rating: {{designedGames.averageRating}}</p>                               
+      </div>
+    </div>
 
-<h3> Designed Games </h3>
-<ul>
-  <li>
-    {{designedGames.totalPlayedGames}}
-    {{designedGames.totalwins}}
-    {{designedGames.averageRating}}
-  <ul>
-    <li *ngFor="let designedGame of designedGames.games">
-      <a routerLink="/designed-games-detail/{{designedGame.id}}">
-        designedGame.id
-      </a>
-      {{designedGame.name}}
-      {{designedGame.date}}
-    </li>
-  </ul>
-  </li>
-</ul>
+    <carousel>
+        <slide *ngFor="let designedGame of designedGames.games">
+          <div class="text-center py-5 bg-dark text-white">
+            <a type="button" class="btn btn-primary" routerLink="/designed-games-detail/{{designedGame.id}}">Game Detail</a>
+            <p>Name: {{designedGame.name}}</p>
+            <p>Date: {{designedGame.date}}</p>
+          </div>
+        </slide>
+    </carousel>
+  </accordion-group>
+
+</accordion>
+
 

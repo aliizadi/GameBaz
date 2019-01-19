@@ -27,8 +27,9 @@ import { DesignedGamesService } from './_services/profile/designed-games.service
 import { PlayedGamesService } from './_services/profile/played-games.service';
 import { UserInformationService } from './_services/profile/user-information.service';
 
-
-
+// Modules
+import { CarouselModule} from 'ngx-bootstrap/carousel';
+import { AccordionModule} from 'ngx-bootstrap/accordion';
 
 
 
@@ -50,6 +51,8 @@ import { UserInformationService } from './_services/profile/user-information.ser
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CarouselModule,
+    AccordionModule.forRoot()
   ],
   providers: [
     OnlineUsersService,

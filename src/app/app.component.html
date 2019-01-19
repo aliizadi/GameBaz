@@ -1,10 +1,24 @@
 <h1>I Can Complete This Project :)</h1>
-<nav>
-  <a routerLink="/home">Home </a>
-  <a routerLink="/design-game">Design Game </a>
-  <a routerLink="/games">Games </a>
-  <a routerLink="/profile">Profile </a>
-  <a routerLink="/start-game">Start Game </a>
-  <a routerLink="/users">Users </a>
+<nav class="navbar navbar-expand-sm bg-primary justify-content-center navbar-dark">
+  <ul class="navbar-nav" >
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/home" style="text-align: center;">Home </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/start-game">Start Game </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/users">Users </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/games">Games </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/design-game">Design Game </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="/profile">Profile </a>
+    </li>
+  </ul>
 </nav>
 <router-outlet></router-outlet>
