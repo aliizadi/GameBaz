@@ -12,15 +12,24 @@ import { GamesReviewsComponent } from './admin/games-reviews/games-reviews.compo
 import { UsersReviewsComponent } from './admin/users-reviews/users-reviews.component';
 import { GamesDetailComponent } from './profile/games-detail/games-detail.component';
 import { DesignedGamesDetailComponent } from './profile/designed-games-detail/designed-games-detail.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+
+// Guards
+import { CanActivateProfileGuard } from './auth/can-activate-profile.guard';
+
+
 
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'design-game', component: DesignGameComponent },
     { path: 'games', component: GamesComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfileComponent,
+      canActivate: [
+      CanActivateProfileGuard]},
     { path: 'start-game', component: StartGameComponent },
     { path: 'users', component: UsersComponent },
+    { path: 'sign-in', component: SignInComponent },
     { path: 'users-reviews', component: UsersReviewsComponent },
     { path: 'games-reviews', component: GamesReviewsComponent },
     { path: 'games-detail/:id', component: GamesDetailComponent },

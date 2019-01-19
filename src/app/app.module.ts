@@ -31,6 +31,9 @@ import { UserInformationService } from './_services/profile/user-information.ser
 import { CarouselModule} from 'ngx-bootstrap/carousel';
 import { AccordionModule} from 'ngx-bootstrap/accordion';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 @NgModule({
@@ -45,14 +48,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsersReviewsComponent,
     GamesReviewsComponent,
     GamesDetailComponent,
-    DesignedGamesDetailComponent
+    DesignedGamesDetailComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CarouselModule,
     AccordionModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     OnlineUsersService,
