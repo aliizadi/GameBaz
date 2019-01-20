@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit {
             response['token'],
             response['name']
           );
-          this.router.navigate(['/hone']);
+          this.router.navigate(['/home']);
         },
         (error) => {
           this.isBusy = false;

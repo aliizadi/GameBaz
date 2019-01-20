@@ -26,14 +26,16 @@ import { ProfileSummeryService } from './_services/profile-summery.service';
 import { DesignedGamesService } from './_services/profile/designed-games.service';
 import { PlayedGamesService } from './_services/profile/played-games.service';
 import { UserInformationService } from './_services/profile/user-information.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 // Modules
 import { CarouselModule} from 'ngx-bootstrap/carousel';
 import { AccordionModule} from 'ngx-bootstrap/accordion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     CarouselModule,
     AccordionModule.forRoot(),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     OnlineUsersService,

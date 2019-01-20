@@ -13,6 +13,8 @@ import { UsersReviewsComponent } from './admin/users-reviews/users-reviews.compo
 import { GamesDetailComponent } from './profile/games-detail/games-detail.component';
 import { DesignedGamesDetailComponent } from './profile/designed-games-detail/designed-games-detail.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 
 // Guards
 import { CanActivateProfileGuard } from './auth/can-activate-profile.guard';
@@ -30,6 +32,7 @@ const routes: Routes = [
     { path: 'start-game', component: StartGameComponent },
     { path: 'users', component: UsersComponent },
     { path: 'sign-in', component: SignInComponent },
+    { path: 'sign-up', component: SignUpComponent },    
     { path: 'users-reviews', component: UsersReviewsComponent },
     { path: 'games-reviews', component: GamesReviewsComponent },
     { path: 'games-detail/:id', component: GamesDetailComponent },

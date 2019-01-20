@@ -6,10 +6,18 @@ import { catchError } from 'rxjs/operators';
 
 const API_URL = environment.apiUrl;
 
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class SignInService {
+  
 
   constructor(private http: HttpClient) { }
 
@@ -17,11 +25,6 @@ export class SignInService {
     
     const SIGNIN: signIn = {username: username, password: password};
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
     
     return this.http.post<signIn>(API_URL + '/sign-in' , SIGNIN, httpOptions)
     
@@ -30,6 +33,33 @@ export class SignInService {
     );
   } 
 
+    signUp(user: signUp) {
+    
+    const SIGNUP: signUp = {username: user.username,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            birthday: user.birthday,
+                            gender: user.gender,
+                            password: user.password
+                            };
+    return this.http.post<signIn>(API_URL + '/sign-up' , SIGNUP, httpOptions)
+    
+    .pipe(
+      catchError(error => error)
+    );
+  } 
+
+}
+
+export class signUp{
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthday: string;
+  gender: string;
+  password: string;
 }
 
 class signIn {
