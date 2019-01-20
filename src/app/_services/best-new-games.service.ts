@@ -2,26 +2,36 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { game } from '../_models/game'
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { throwError } from 'rxjs';
+
+
+
+const API_URL = environment.apiUrl;
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class BestNewGamesService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getBestNewGames(): Observable<game[]> {
-    const BESTNEWGAMES: game[] = [
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-      {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
-    ];
-    
-    return of(BESTNEWGAMES)
+  getBestNewGames() {
+    return this.http.get(API_URL + '/best-new-games', httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
   }
 }

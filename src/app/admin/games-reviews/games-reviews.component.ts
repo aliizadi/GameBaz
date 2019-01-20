@@ -28,7 +28,7 @@ export class GamesReviewsComponent implements OnInit {
 
   getGamesComments(): void {
     this.heroService.getGamesComments()
-      .subscribe(gamesComments => this.gamesComments = gamesComments);
+      .subscribe(gamesComments => this.gamesComments = gamesComments['gamesComments']);
   }
 
   goBack(): void {

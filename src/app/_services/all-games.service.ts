@@ -1,23 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
 import { game } from '../_models/all-games';
+import { Observable, of } from 'rxjs';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { throwError } from 'rxjs';
+
+
+
+const API_URL = environment.apiUrl;
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllGamesService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllGames(): Observable<game[]> {
-    const ALLGAMES: game[] = [
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-    ];
-    
-    return of(ALLGAMES)
+  getAllGames(){
+    return this.http.get(API_URL + '/all-games', httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
   }
 }
 

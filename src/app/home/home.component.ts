@@ -43,26 +43,26 @@ export class HomeComponent implements OnInit {
 
   getOnlineUsers(): void {
     this.onlineUsersService.getOnlineUsers()
-      .subscribe(onlineUsers => this.onlineUsers = onlineUsers)
+      .subscribe(onlineUsers => this.onlineUsers = onlineUsers['onlineUsers'])
   }
 
   getBestGames(): void {
     this.bestGamesService.getBestGames()
-      .subscribe(bestGames => this.bestGames = bestGames)
+      .subscribe(bestGames => this.bestGames = bestGames['bestGames'])
   }
 
   getBestNewGames(): void {
     this.bestNewGamesService.getBestNewGames()
-      .subscribe(bestNewGames => this.bestNewGames = bestNewGames)
+      .subscribe(bestNewGames => this.bestNewGames = bestNewGames['bestNewGames'])
   }
 
   getMostOnlineGames(): void {
     this.mostOnlineGamesService.getMostOnlineGames()
-      .subscribe(mostOnlineGames => this.mostOnlineGames = mostOnlineGames)
+      .subscribe(mostOnlineGames => this.mostOnlineGames = mostOnlineGames['mostOnlineGames'])
   }
 
   getProfileSummer(): void {
     this.profileSummeryService.getProfileSummery()
-      .subscribe(profileSummery => this.profileSummery = profileSummery)
+      .subscribe(profileSummery => this.profileSummery = profileSummery['profileSummery'])
   }
 }

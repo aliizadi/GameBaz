@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   getAllUsers(): void {
     this.allUsersService.getAllUsers()
-      .subscribe(allUsers => this.allUsers = allUsers)
+      .subscribe(allUsers => this.allUsers = allUsers['allUsers'])
   }
 
 }

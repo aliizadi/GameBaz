@@ -3,20 +3,36 @@ import { Observable, of } from 'rxjs';
 
 import { user } from '../_models/all-users'
 
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { throwError } from 'rxjs';
+
+
+
+const API_URL = environment.apiUrl;
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AllUsersService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllUsers(): Observable<user[]> {
-    const ALLUSERS: user[] = [
-      {username: 'aliizadi', averageRating: 3.5, totalPlayed: 85, status: "online"},
-      {username: 'hoseini', averageRating: 4.5, totalPlayed: 75, status: "offline"},
-      {username: 'mammadi', averageRating: 2.5, totalPlayed: 95, status: "online"}
-    ];
-    
-    return of(ALLUSERS)
+  getAllUsers() {
+    return this.http.get(API_URL + '/all-users', httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
   }
 }

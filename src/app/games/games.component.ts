@@ -22,6 +22,12 @@ export class GamesComponent implements OnInit {
 
   getAllGames(): void {
     this.allGamesService.getAllGames()
-      .subscribe(allGames => this.allGames = allGames)
+      .subscribe(allGames => {
+        this.allGames = allGames['allGames']}
+      )
   }
+
+  
+  
+
 }

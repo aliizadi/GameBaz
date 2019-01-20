@@ -4,10 +4,21 @@ const router = express.Router();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/GameBaz_db');
 
-module.exports = router;
+
+// router.get('/', (req, res) => {
+//   res.send('api workss');
+// });
 
 
-app.route('/api/all-games').get((req, res) => {
+/**
+ * 
+ * 
+ *************************  GET METHODS 
+ * 
+ * 
+ */
+
+router.get('/all-games',(req, res) => {
   res.send({
     allGames: [
       {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
@@ -17,7 +28,7 @@ app.route('/api/all-games').get((req, res) => {
   });
 });
 
-app.route('/api/all-users').get((req, res) => {
+router.get('/all-users', (req, res) => {
   res.send({
     allUsers: [
       {username: 'aliizadi', averageRating: 3.5, totalPlayed: 85, status: "online"},
@@ -27,7 +38,7 @@ app.route('/api/all-users').get((req, res) => {
   });
 });
 
-app.route('/api/best-games').get((req, res) => {
+router.get('/best-games', (req, res) => {
   res.send({
     bestGames: [
         { id: 1, name: 'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
@@ -39,7 +50,7 @@ app.route('/api/best-games').get((req, res) => {
   });
 });
 
-app.route('/api/best-new-games').get((req, res) => {
+router.get('/best-new-games', (req, res) => {
   res.send({
     bestNewGames: [
       {id: 1,name:'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
@@ -54,7 +65,7 @@ app.route('/api/best-new-games').get((req, res) => {
   });
 });
 
-app.route('/api/games-comments').get((req, res) => {
+router.get('/games-comments', (req, res) => {
   res.send({
     gameComments: [
         { gameID: 1, gameName: 'bazi', content: 'bad', accepted: false},
@@ -65,7 +76,7 @@ app.route('/api/games-comments').get((req, res) => {
   });
 });
 
-app.route('/api/most-online-ames').get((req, res) => {
+router.get('/most-online-games', (req, res) => {
   res.send({
     mostOnlineGames: [
       {id: 1, name: 'bazi', maxScore: 100, resetNumbers: [2], Dices: 1, maxThrow: 6},
@@ -78,7 +89,7 @@ app.route('/api/most-online-ames').get((req, res) => {
   });
 });
 
-app.route('/api/online-users').get((req, res) => {
+router.get('/online-users', (req, res) => {
   res.send({
     onlineUsers: [
       { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
@@ -95,7 +106,7 @@ app.route('/api/online-users').get((req, res) => {
 });
 
 
-app.route('/api/users-comments').get((req, res) => {
+router.get('/users-comments', (req, res) => {
   res.send({
     usersComments: [
       { username: 'aminamini', firstName: 'amin', lastName: 'amini', content: 'good', accepted: false},
@@ -113,14 +124,14 @@ app.route('/api/users-comments').get((req, res) => {
 // 
 // 
 // 
-app.route('/api/profile-summery').get((req, res) => {
+router.get('/profile-summery', (req, res) => {
   res.send({
     profileSummery:  { username: 'aliizadi', firstName: 'Ali', lastName: 'Izadi', email: 'Izadi@', playedGame: 1,
                   wins: 2, averageRate: 2.5}
   });
 });
 
-app.route('/api/designed-games').get((req, res) => {
+router.get('/designed-games', (req, res) => {
   res.send({
     designedGames: {
         totalDesignedGames: 10,
@@ -134,7 +145,7 @@ app.route('/api/designed-games').get((req, res) => {
   });
 });
 
-app.route('/api/designed-game-detail/:id').get((req, res) => {
+router.get('/designed-game-detail/:id', (req, res) => {
     const requestedGameId = req.params['id']
     res.send({
     gameComments: [
@@ -143,7 +154,7 @@ app.route('/api/designed-game-detail/:id').get((req, res) => {
   });
 });
 
-app.route('/api/played-games').get((req, res) => {
+router.get('/played-games', (req, res) => {
   res.send({
     playedGames: {
         totalPlayedGames: 10,
@@ -157,7 +168,7 @@ app.route('/api/played-games').get((req, res) => {
   });
 });
 
-app.route('/api/played-game-detail/:id').get((req, res) => {
+router.get('/played-game-detail/:id', (req, res) => {
     const requestedGameId = req.params['id']
     res.send({
     gameDetail: {
@@ -170,11 +181,20 @@ app.route('/api/played-game-detail/:id').get((req, res) => {
   });
 });
 
-app.route('/api/user-information').get((req, res) => {
+router.get('/user-information', (req, res) => {
   res.send({
     userInformation: { username: 'rezarezaei', firstName: 'reza',
                       lastName: 'rezaei', birthday: '1376', gender:"male"}
   });
 });
 
+/**
+ * 
+ * 
+ *************************  POST METHODS 
+ * 
+ * 
+ */
 
+ 
+module.exports = router;

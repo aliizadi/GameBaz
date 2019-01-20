@@ -26,7 +26,7 @@ export class UsersReviewsComponent implements OnInit {
 
   getUsersComments(): void {
     this.heroService.getUsersComments()
-      .subscribe(usersComments => this.usersComments = usersComments);
+      .subscribe(usersComments => this.usersComments = usersComments['usersComments']);
   }
 
   goBack(): void {

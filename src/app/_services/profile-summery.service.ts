@@ -2,6 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { profileSummery } from '../_models/profile-summery'
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { throwError } from 'rxjs';
+
+
+
+const API_URL = environment.apiUrl;
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +24,15 @@ import { profileSummery } from '../_models/profile-summery'
 
 export class ProfileSummeryService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
- getProfileSummery(): Observable<profileSummery> {
-    const PROFILESUMMERY: profileSummery = 
-      { username: 'aliizadi', firstName: 'Ali', lastName: 'Izadi', email: 'Izadi@', playedGame: 1,
-        wins: 2, averageRate: 2.5}
-    
-    return of(PROFILESUMMERY)
+ getProfileSummery() {
+    return this.http.get(API_URL + '/profile-summery', httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
   }
 }
