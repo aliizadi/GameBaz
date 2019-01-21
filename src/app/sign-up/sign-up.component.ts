@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   isBusy = false;
   hasFailed = false;
+  isSigned = false;
+  message: string;
 
   constructor(private formBuilder: FormBuilder,
               private signInService: SignInService) {
@@ -43,20 +45,22 @@ export class SignUpComponent implements OnInit {
     this.hasFailed = false;
 
     const USER: signUp = {
-      username: this.signUpForm.value.username.value,
-      firstName: this.signUpForm.value.firstName.value,
-      lastName: this.signUpForm.value.lastName.value,
-      email: this.signUpForm.value.email.value,
-      password: this.signUpForm.value.password.value,
-      gender: this.signUpForm.value.gender.value,
-      birthday: this.signUpForm.value.birthday.value
+      username: this.signUpForm.value.username,
+      firstName: this.signUpForm.value.firstName,
+      lastName: this.signUpForm.value.lastName,
+      email: this.signUpForm.value.email,
+      password: this.signUpForm.value.password,
+      gender: this.signUpForm.value.gender,
+      birthday: this.signUpForm.value.birthday
     }
 
     this.signInService.signUp(USER)
         .subscribe(
         (response) => {
+          this.message = response['message']
           this.isBusy = false;
           this.hasFailed = false;
+          this.isSigned = true;
         },
         (error) => {
           this.isBusy = false;

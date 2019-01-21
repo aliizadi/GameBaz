@@ -17,6 +17,16 @@
               <div *ngIf="f.maxScore.errors.pattern" class="text-danger"> max score must be number</div> 
             </div>
       </div>
+
+      <div class="form-group">
+          <label>Max Throw: </label>
+          <input type="text" formControlName="maxThrow" class="form-control"/>
+            <div *ngIf="f.maxThrow.errors">
+              <div *ngIf="f.maxThrow.errors.required" class="text-danger"> max throw is required</div> 
+              <div *ngIf="f.maxThrow.errors.pattern" class="text-danger"> max throw must be number</div> 
+            </div>
+      </div>
+
       <div class="card">
         <div class="card-body">
           <p> How many dice to roll? </p>
@@ -74,6 +84,9 @@
           </div>
         </div>
      </div>
+    <div *ngIf="isCreated">
+        <div class="text-danger">{{message}}</div>
+    </div>
     </form>
   </div>
 </div>

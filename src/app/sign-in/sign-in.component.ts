@@ -38,8 +38,11 @@ export class SignInComponent implements OnInit {
     this.isBusy = true;
     this.hasFailed = false;
 
-    const username = this.signInForm.get('username').value;
-    const password = this.signInForm.get('password').value;
+    const username = this.signInForm.value.username;
+    const password = this.signInForm.value.password ;
+
+    console.log(username)
+    console.log(password)
 
     // Submit request to API
     this.signInService

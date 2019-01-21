@@ -5,9 +5,53 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/GameBaz_db');
 
 
-// router.get('/', (req, res) => {
-//   res.send('api workss');
-// });
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+  username: { type: String, unique: true},  
+  firstName: String,
+  lastName: String,
+  email: String,
+  password: String,
+  birthday: String,
+  gender: String,
+  status: String,
+  ratings: [Number],
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  games: [{ type: Schema.Types.ObjectId, ref: 'Game'}],
+  playedGame: [{
+    opponent: { type: Schema.Types.ObjectId, ref: 'User'},
+    winner: { type: Schema.Types.ObjectId, ref: 'User'},
+    game: { type: Schema.Types.ObjectId, ref: 'Game'},
+  }]
+});
+
+var User = mongoose.model("User", userSchema);
+
+var gameSchema = new Schema({
+  designer: { type: Schema.Types.ObjectId, ref: 'User'},  
+  designedDate: Date,
+  totalPlayed: Number,
+  totalOnline: Number,
+  ratings: [Number],
+  name: String,
+  maxScore: Number,
+  resetNumbers: [Number],
+  Dices: String,
+  maxThrow: Number,
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments'}],
+});
+
+var Game = mongoose.model("Game", gameSchema);
+
+var CommentSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User'},  
+  game: { type: Schema.Types.ObjectId, ref: 'Game'},    
+  content: String,
+  accepted: Boolean,
+});
+
+var Comment = mongoose.model("Comment", CommentSchema);
 
 
 /**
@@ -19,12 +63,31 @@ mongoose.connect('mongodb://localhost/GameBaz_db');
  */
 
 router.get('/all-games',(req, res) => {
-  res.send({
-    allGames: [
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-      {id: 1, averageRating: 3.5, totalPlaying: 10, designedDate: 'parsal', designer: {username: 'ali'}, totalPlayed: 20},
-    ]
+
+
+  Game.find({}, function(err, games) {
+    if (err) throw err;    
+
+    var allGames = []
+    
+    for (game in games){
+      var sum = 0
+      for(rate in game.ratings)
+        sum += rate
+      var averageRating = sum
+      allGames.push({
+        id: game._id,
+        averageRating: averageRating,
+        totalPlaying: game.totalOnline,
+        designedDate: game.designedDate,
+        designer: {username: "not implemented yet"},
+        totalPlayed: game.totalPlayed
+      })
+    }
+    
+    res.send({
+      allGames: allGames
+    });
   });
 });
 
@@ -195,6 +258,110 @@ router.get('/user-information', (req, res) => {
  * 
  * 
  */
+
+//  add friend
+// add comments and score
+// add games 
+// accept users and game comments
+// edit profile
+// games but online i think we need to store some information about game
+//
+
+router.post('/sign-up',  (req, res) => {
+
+    // if (User.findOne({ username: req.body.username })) {
+    //     throw 'Username "' + req.body.username + '" is already taken';
+    // }
+    
+
+    var document = {
+      username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      birthday: req.body.birthday,
+      gender: req.body.gender,
+      password: req.body.password,
+    }
+
+    var user = new User(document); 
+
+    user.save(function(error){
+      console.log(user);
+      if(error){ 
+        throw error;
+      }
+      res.json({message : "user registerd successfully.", status : "success"});
+    });    
+  
+});
+
+router.post('/sign-in',  (req, res) => {
+
+    User.findOne({ username : req.body.username })
+        .exec(function (err, user) {
+          if (err){
+              res.json({message : "there isn't user with this username", status : "failure"});
+          }
+
+          if( user.password == req.body.password){
+            res.json({
+              name: user.username,
+              token: user.username
+            });
+          }
+        });
+  
+});
+
+router.post('/create-game',  (req, res) => {
+
+    const authorizationHeaders = req.get('Authorization').toString().split(':')
+    const name = authorizationHeaders[0]
+    const token = authorizationHeaders[1]
+    
+    if(name == token){
+      
+      User.findOne({ username : name })
+          .exec(function (err, user) {
+            if (err){
+                res.json({message : "there isn't user with this username", status : "failure"});
+            }
+            else{
+
+              var document = {
+                designer: user._id,
+                designedDate: new Date(),
+                name: req.body.name,
+                maxScore: req.body.maxScore,
+                resetNumbers: req.body.resetNumbers,
+                Dices: req.body.Dices,
+                maxThrow: req.body.maxThrow
+              }
+
+              var game = new Game(document);    
+              
+            
+            
+              game.save(function (err) {
+                if(err){ 
+                  throw err;
+                }
+
+                user.games.push(game)
+                res.json({
+                  message: 'game successfuly created'
+                });
+              });
+            }
+          });
+      }
+      else {
+        res.json({message: "Sign In first"})
+      }
+});
+
+
 
  
 module.exports = router;

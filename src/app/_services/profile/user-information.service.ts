@@ -12,7 +12,7 @@ export class UserInformationService {
 
     getUserInformation(): Observable<userInformation> {
       const USERINFORMATION: userInformation = 
-      { username: 'rezarezaei', firstName: 'reza', lastName: 'rezaei', birthday: '1376', gender:"male"}
+      { username: 'rezarezaei', firstName: 'reza', lastName: 'rezaei', email:'a@a' , birthday: '1376', gender:"male"}
 
       return of(USERINFORMATION)
     }
