@@ -34,7 +34,9 @@ export class ProfileComponent implements OnInit {
 
   getUserInformation(): void {
     this.userInformationService.getUserInformation()
-      .subscribe(userInformation => this.userInformation = userInformation)
+      .subscribe(userInformation => {
+        console.log(userInformation)
+        this.userInformation = userInformation})
   }
 
   getPlayedGames(): void {
@@ -44,7 +46,10 @@ export class ProfileComponent implements OnInit {
     
   getDesignedGames(): void {
     this.designedGamesService.getDesignedGames()
-      .subscribe(designedGames => this.designedGames = designedGames)
+      .subscribe(designedGames =>{ 
+        console.log(designedGames)
+        this.designedGames = designedGames}
+      )
   }
 
 }

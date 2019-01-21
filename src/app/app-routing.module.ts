@@ -24,7 +24,9 @@ import { CanActivateProfileGuard } from './auth/can-activate-profile.guard';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'design-game', component: DesignGameComponent },
+    { path: 'design-game', component: DesignGameComponent,
+      canActivate: [
+      CanActivateProfileGuard]},
     { path: 'games', component: GamesComponent },
     { path: 'profile', component: ProfileComponent,
       canActivate: [

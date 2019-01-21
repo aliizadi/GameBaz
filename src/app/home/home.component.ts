@@ -11,6 +11,10 @@ import { BestGamesService } from '../_services/best-games.service';
 import { BestNewGamesService } from '../_services/best-new-games.service';
 import { MostOnlineGamesService } from '../_services/most-online-games.service';
 import { ProfileSummeryService } from '../_services/profile-summery.service';
+import { SessionService } from '../_services/session.service';
+import { AuthService } from '../_services/auth.service';
+
+
 
 
 
@@ -20,6 +24,10 @@ import { ProfileSummeryService } from '../_services/profile-summery.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  isSigned =  false;
+  isAdmin = false;
+  isUser = false;
 
   onlineUsers: onlineUser[];
   bestGames: game[];
@@ -31,14 +39,32 @@ export class HomeComponent implements OnInit {
               private bestGamesService: BestGamesService,
               private bestNewGamesService: BestNewGamesService,
               private mostOnlineGamesService: MostOnlineGamesService,
-              private profileSummeryService: ProfileSummeryService) { }
+              private profileSummeryService: ProfileSummeryService,
+              private sessionService: SessionService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.getOnlineUsers();
     this.getBestGames();
     this.getMostOnlineGames();
     this.getBestNewGames();
-    this.getProfileSummer();
+    this.getProfileSummery();
+    this.isSigned = this.authService.isSignedIn()
+    this.isAdmin = this.isSigned && this.sessionService.accessToken == 'admin'
+    this.isUser = this.isSigned && this.sessionService.accessToken != 'admin'
+  }
+
+  ngOnChanges() {
+    this.isSigned = this.authService.isSignedIn()
+    this.isAdmin = this.isSigned && this.sessionService.accessToken == 'admin'
+    this.isUser = this.isSigned && this.sessionService.accessToken != 'admin'
+  }
+
+
+  ngDoCheck() {
+    this.isSigned = this.authService.isSignedIn()
+    this.isAdmin = this.isSigned && this.sessionService.accessToken == 'admin'
+    this.isUser = this.isSigned && this.sessionService.accessToken != 'admin'
   }
 
   getOnlineUsers(): void {
@@ -61,7 +87,7 @@ export class HomeComponent implements OnInit {
       .subscribe(mostOnlineGames => this.mostOnlineGames = mostOnlineGames['mostOnlineGames'])
   }
 
-  getProfileSummer(): void {
+  getProfileSummery(): void {
     this.profileSummeryService.getProfileSummery()
       .subscribe(profileSummery => this.profileSummery = profileSummery['profileSummery'])
   }

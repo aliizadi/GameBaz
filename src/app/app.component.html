@@ -4,25 +4,28 @@
     <li class="nav-item">
       <a class="nav-link active" routerLink="/home" style="text-align: center;">Home </a>
     </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link active" routerLink="/start-game" >Game-Page</a>
+    </li> -->
     <li class="nav-item">
-      <a class="nav-link active" routerLink="/start-game">Game-Page</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" routerLink="/users">Users </a>
+      <a class="nav-link active" routerLink="/users" *ngIf="isSigned">Users </a>
     </li>
     <li class="nav-item">
       <a class="nav-link active" routerLink="/games">Games </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" routerLink="/design-game">Design Game </a>
+      <a class="nav-link active" routerLink="/design-game" *ngIf="isSigned">Design Game </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="isSigned">
       <a class="nav-link active" routerLink="/profile">Profile </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" routerLink="/sign-in">Sign-In </a>
+      <a class="nav-link active" routerLink="/sign-in" *ngIf="!isSigned">Sign-In </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link active" (click)="doSignOut()" *ngIf="isSigned">Sign-Out </a>
+    </li>
+    <li class="nav-item" *ngIf="!isSigned">
       <a class="nav-link active" routerLink="/sign-up">Sign-Up </a>
     </li>    
   </ul>

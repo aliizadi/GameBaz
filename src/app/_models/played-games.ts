@@ -7,7 +7,7 @@ export class playedGames{
 }
 
 class game{
-    id: number;
+    id: string;
     name: string;
     date: string;
 }

@@ -1,5 +1,5 @@
 export class game{
-    id: number;
+    id: string;
     averageRating: number; 
     totalPlaying: number;
     designedDate: string;

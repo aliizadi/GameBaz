@@ -35,6 +35,7 @@ import { AccordionModule} from 'ngx-bootstrap/accordion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { RatingModule } from 'ngx-bootstrap/rating';
 
 
 
@@ -61,7 +62,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AccordionModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    RatingModule.forRoot(),
   ],
   providers: [
     OnlineUsersService,

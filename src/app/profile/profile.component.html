@@ -7,7 +7,7 @@
             <h4 class="card-title">User Name: {{userInformation.username}}</h4>
             <p class="card-text">First Name: {{userInformation.firstName}}</p>
             <p class="card-text">Last Name: {{userInformation.lastName}}</p>  
-            <p class="card-text">Email: {{userInformation.Email}}</p>              
+             <p class="card-text">Email: {{userInformation.email}}</p>               
             <p class="card-text"> Birthday: {{userInformation.birthday}}</p> 
             <p class="card-text">gender: {{userInformation.gender}}</p>                                
           </div>
@@ -29,7 +29,7 @@
         <slide *ngFor="let playedGame of playedGames.games">
           <div class="text-center py-5 bg-dark text-white">
             <a type="button" class="btn btn-primary" routerLink="/games-detail/{{playedGame.id}}">Game Detail</a>
-            <p>Name: {{playedGame.name}}</p>
+            <p>Name: {{playedGame.name}}</p>  
             <p>Date: {{playedGame.date}}</p>
           </div>
         </slide>

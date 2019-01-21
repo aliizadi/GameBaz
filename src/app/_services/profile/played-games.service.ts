@@ -19,15 +19,15 @@ export class PlayedGamesService {
         totalwins: 5,
         averageRating: 2.5,
         games: [
-          {id: 1, name: 'bazi1', date: 'farda'},
-          {id: 1, name: 'bazi1', date: 'farda'}
+          {id: 'sff', name: 'bazi1', date: 'farda'},
+          {id: 'asfa', name: 'bazi1', date: 'farda'}
         ]
       }
 
       return of(PLAYEDGAMES)
     }
 
-    getGameDetail(id: number): Observable<gameDetail> {
+    getGameDetail(id: string): Observable<gameDetail> {
 
       const GAMEDETAIL: gameDetail = {
         opponent: {id: 'hoseinhoseini', firstName: 'hosein', lastName: 'hoseini'},

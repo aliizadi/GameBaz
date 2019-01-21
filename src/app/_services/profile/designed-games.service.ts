@@ -1,36 +1,60 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { throwError } from 'rxjs';
+
+import { SessionService } from '../../_services/session.service';
+
 import { designedGames } from '../../_models/designed-games'
 import { gameDetail } from '../../_models/designed-games'
+
+const API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class DesignedGamesService {
 
-  constructor() { }
+  constructor(private sessionService: SessionService,
+              private http: HttpClient) { }
 
- getDesignedGames(): Observable<designedGames> {
+ getDesignedGames(){
 
-      const DESIGNEDGAMES: designedGames = {
-        totalDesignedGames: 10,
-        totalPlayed: 5,
-        averageRating: 2.5,
-        games: [
-          {id: 1, name: 'bazi1', date: 'farda'},
-          {id: 1, name: 'bazi1', date: 'farda'}
-        ]
-      }
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': this.sessionService.name + ':'+ this.sessionService.accessToken
+        })
+      };
 
-      return of(DESIGNEDGAMES)
+      return this.http.get(API_URL + '/designed-games', httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
     }
 
-  getGameDetail(id: number): Observable<gameDetail> {
+  getGameDetail(id: number){
 
-    const GAMEDETAIL: gameDetail = {
-          gameComments: [{content: 'khooob', username: 'mamamad'}, {content: 'bad', username:'ali'}]}
+   const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': this.sessionService.name + ':'+ this.sessionService.accessToken
+        })
+      };
 
-    return of(GAMEDETAIL)
+      return this.http.get(API_URL + '/designed-game-detail/'+ id, httpOptions)
+      .pipe(
+        catchError(error => {
+            return throwError(error)
+          }
+        )
+      )
+    
   }
 }

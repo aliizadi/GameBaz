@@ -19,6 +19,7 @@ var userSchema = new Schema({
   ratings: [Number],
   friends: [{ type: Schema.Types.ObjectId, ref: 'User'}],
   games: [{ type: Schema.Types.ObjectId, ref: 'Game'}],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'UserComments'}],
   playedGame: [{
     opponent: { type: Schema.Types.ObjectId, ref: 'User'},
     winner: { type: Schema.Types.ObjectId, ref: 'User'},
@@ -39,19 +40,28 @@ var gameSchema = new Schema({
   resetNumbers: [Number],
   Dices: String,
   maxThrow: Number,
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments'}],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'GameComments'}],
 });
 
 var Game = mongoose.model("Game", gameSchema);
 
-var CommentSchema = new Schema({
+var UserCommentSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User'},  
-  game: { type: Schema.Types.ObjectId, ref: 'Game'},    
   content: String,
   accepted: Boolean,
 });
 
-var Comment = mongoose.model("Comment", CommentSchema);
+var UserComment = mongoose.model("UserComment", UserCommentSchema);
+
+var GameCommentSchema = new Schema({
+  game: { type: Schema.Types.ObjectId, ref: 'Game'},  
+  content: String,
+  accepted: Boolean,
+});
+
+var GameComment = mongoose.model("GameComment", GameCommentSchema);
+
+
 
 
 /**
@@ -70,20 +80,17 @@ router.get('/all-games',(req, res) => {
 
     var allGames = []
     
-    for (game in games){
-      var sum = 0
-      for(rate in game.ratings)
-        sum += rate
-      var averageRating = sum
+    games.forEach(function(game){
+      console.log(game)
       allGames.push({
         id: game._id,
-        averageRating: averageRating,
+        averageRating: 4,
         totalPlaying: game.totalOnline,
         designedDate: game.designedDate,
         designer: {username: "not implemented yet"},
         totalPlayed: game.totalPlayed
       })
-    }
+    });
     
     res.send({
       allGames: allGames
@@ -92,12 +99,24 @@ router.get('/all-games',(req, res) => {
 });
 
 router.get('/all-users', (req, res) => {
-  res.send({
-    allUsers: [
-      {username: 'aliizadi', averageRating: 3.5, totalPlayed: 85, status: "online"},
-      {username: 'hoseini', averageRating: 4.5, totalPlayed: 75, status: "offline"},
-      {username: 'mammadi', averageRating: 2.5, totalPlayed: 95, status: "online"}
-    ]
+  User.find({}, function(err, users) {
+    if (err) throw err; 
+    var allUsers = []
+    
+    users.forEach(function(user){
+      console.log(user)
+      allUsers.push({
+        averageRating: 4,
+        totalPlayed: 10,
+        username: user.username,
+        status: user.status
+      })
+    });
+      
+    
+    res.send({
+      allUsers: allUsers
+    }); 
   });
 });
 
@@ -153,19 +172,35 @@ router.get('/most-online-games', (req, res) => {
 });
 
 router.get('/online-users', (req, res) => {
-  res.send({
-    onlineUsers: [
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-      { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
-    ]
+
+  User.find({status: 'online'}, function(err, users) {
+    if (err) throw err; 
+    var onlineUsers = []
+    
+    users.forEach(function(user){
+      onlineUsers.push({
+        id: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      })
+    });
+    res.send({
+      onlineUsers: onlineUsers
+    }); 
   });
+  // res.send({
+  //   onlineUsers: [
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //     { id: 'aliizadi', firstName: 'Ali', lastName: 'Izadi' },
+  //   ]
+  // });
 });
 
 
@@ -181,12 +216,6 @@ router.get('/users-comments', (req, res) => {
 });
 
 
-// need authorization
-// 
-// 
-// 
-// 
-// 
 router.get('/profile-summery', (req, res) => {
   res.send({
     profileSummery:  { username: 'aliizadi', firstName: 'Ali', lastName: 'Izadi', email: 'Izadi@', playedGame: 1,
@@ -195,17 +224,59 @@ router.get('/profile-summery', (req, res) => {
 });
 
 router.get('/designed-games', (req, res) => {
-  res.send({
-    designedGames: {
-        totalDesignedGames: 10,
-        totalPlayed: 5,
-        averageRating: 2.5,
-        games: [
-          {id: 1, name: 'bazi1', date: 'farda'},
-          {id: 1, name: 'bazi1', date: 'farda'}
-        ]
+  const authorizationHeaders = req.get('Authorization').toString().split(':')
+    const name = authorizationHeaders[0]
+    const token = authorizationHeaders[1]
+    
+    if(name == token){
+      
+      User.findOne({ username : name })
+          .exec(function (err, user) {
+            if (err){
+                res.json({message : "there isn't user with this username", status : "failure"});
+            }
+            else{
+
+               Game.find({ designer : user._id })
+                 .exec(function (err, games) {
+
+                  if (err) throw err; 
+                  var designedGames = []
+                  
+                  games.forEach(function(game){
+                    designedGames.push({
+                      id: game._id,
+                      name: game.name,
+                      date: game.date
+                    })
+                  });
+
+                  console.log(designedGames)
+        
+                res.json({
+                      totalDesignedGames: 11,
+                      totalPlayed: 5,
+                      averageRating: 4.5,
+                      games : designedGames
+                });
+              });
+            }
+          });
       }
-  });
+      else {
+        res.json({message: "Sign In first"})
+      }
+  // res.send({
+  //   designedGames: {
+  //       totalDesignedGames: 10,
+  //       totalPlayed: 5,
+  //       averageRating: 2.5,
+  //       games: [
+  //         {id: 1, name: 'bazi1', date: 'farda'},
+  //         {id: 1, name: 'bazi1', date: 'farda'}
+  //       ]
+  //     }
+  // });
 });
 
 router.get('/designed-game-detail/:id', (req, res) => {
@@ -218,6 +289,7 @@ router.get('/designed-game-detail/:id', (req, res) => {
 });
 
 router.get('/played-games', (req, res) => {
+  
   res.send({
     playedGames: {
         totalPlayedGames: 10,
@@ -245,10 +317,36 @@ router.get('/played-game-detail/:id', (req, res) => {
 });
 
 router.get('/user-information', (req, res) => {
-  res.send({
-    userInformation: { username: 'rezarezaei', firstName: 'reza',
-                      lastName: 'rezaei', birthday: '1376', gender:"male"}
-  });
+    const authorizationHeaders = req.get('Authorization').toString().split(':')
+    const name = authorizationHeaders[0]
+    const token = authorizationHeaders[1]
+    
+    if(name == token){
+
+      User.findOne({ username : name })
+        .exec(function (err, user) {
+          if (err){
+              res.json({message : "there isn't user with this username", status : "failure"});
+          }
+            res.json({
+              username: user.username,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              birthday: user.birthday,
+              gender: user.gender,
+              email: user.email
+            });
+        });
+
+    }
+    else {
+        res.json({message: "Sign In first"})
+    }
+      
+  // res.send({
+  //   userInformation: { username: 'rezarezaei', firstName: 'reza',
+  //                     lastName: 'rezaei', birthday: '1376', gender:"male"}
+  // });
 });
 
 /**
@@ -260,8 +358,6 @@ router.get('/user-information', (req, res) => {
  */
 
 //  add friend
-// add comments and score
-// add games 
 // accept users and game comments
 // edit profile
 // games but online i think we need to store some information about game
@@ -331,7 +427,7 @@ router.post('/create-game',  (req, res) => {
 
               var document = {
                 designer: user._id,
-                designedDate: new Date(),
+                designedDate: Date.now(),
                 name: req.body.name,
                 maxScore: req.body.maxScore,
                 resetNumbers: req.body.resetNumbers,
@@ -361,6 +457,69 @@ router.post('/create-game',  (req, res) => {
       }
 });
 
+router.post('/save-comments/:id',  (req, res) => {
+
+    const requestedGameId = req.params['id']
+    
+      
+      User.findOne({ username : 'comp' })
+          .exec(function (err, user) {
+            if (err){
+                res.json({message : "there isn't user with this username", status : "failure"});
+            }
+            else{
+
+              var userdocument = {
+                user: user._id,
+                content: req.body.userComment,
+                accepted: false
+              }
+
+              var userComment = new UserComment(userdocument);    
+            
+              userComment.save(function (err) {
+                if(err){ 
+                  throw err;
+                }
+
+              });
+            }
+      });
+
+      Game.findOne({ _id : requestedGameId })
+          .exec(function (err, game) {
+            if (err){
+                res.json({message : "there isn't game with this id", status : "failure"});
+            }
+            else{
+
+              var gamedocument = {
+                game: game._id,
+                content: req.body.gameComment,
+                accepted: false
+              }
+
+              var gameComment = new GameComment(gamedocument);    
+            
+              gameComment.save(function (err) {
+                if(err){ 
+                  throw err;
+                }
+              });
+            }
+      });
+
+      res.json({
+        message: 'comments successfuly added'
+      });
+
+});
+
+
+  const COMMENTS = {userComment: userComment,
+                    userRating: userRating,
+                    gameComment: gameComment, 
+                    gameRating: gameRating};
 
 
  

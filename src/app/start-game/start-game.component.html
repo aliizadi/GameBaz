@@ -1,3 +1,66 @@
-<p>
-  start-game works!
-</p>
+<div *ngIf="!finished">
+<div class="game-panel" >
+		<!-- left -->
+		<div class="player-0 active">
+			<div class="name0">{{name_0}}</div>
+			<div class="player0-score">{{player0_score}}</div>
+			<div class="player0-current">
+				<div class="player-current-word">Current</div>
+				<div class="player0-current-dice">{{player0_current_dice}}</div>
+			</div>
+		</div>
+
+		<!-- middle -->
+		<button class="btn-roll icon-loop2" (click)="roll()"> Roll dice</button>
+		<button class="btn-hold icon-pause2" (click)="hold()"> Hold</button>
+		<img src='assets/img/dice-{{imgSrc}}.png' class="dice">
+		
+		<!-- right -->
+		<div class="player-1">
+			<div class="name1">{{name_1}}</div>
+			<div class="player1-score">{{player1_score}}</div>
+			<div class="player1-current">
+				<div class="player-current-word">Current</div>
+				<div class="player1-current-dice">{{player1_current_dice}}</div>
+			</div>
+		</div>  
+	
+  </div>
+</div>
+  
+<div class="card" *ngIf="finished">
+  <div class="card-body">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+            <label for="comment">Game Comment:</label>
+              <textarea class="form-control" formControlName="GameComment" rows="5" id="comment"></textarea>
+          </div> 
+      </div>
+    </div>
+
+    <div class="card">
+       <div class="card-body">
+          <div class="form-group">
+            <label for="comment">User Comment:</label>
+              <textarea class="form-control" formControlName="UserComment" rows="5" id="comment"></textarea>
+          </div> 
+
+       </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+            <button [disabled]="!commentForm.valid" class="btn btn-primary">Save Comments</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+    <div *ngIf="isComment">
+        <div class="text-danger">{{message}}</div>
+    </div>
+  </div>
+</div>	

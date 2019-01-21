@@ -19,7 +19,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'server/dist/index.html'));
 });
 
-const port = process.env.PORT || '9192';
+const port = process.env.PORT || '9193';
 app.set('port', port);
 
 app.use(function (req, res, next) {
